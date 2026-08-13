@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Absen Kelas XI PPLG 1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .carousel-track {
+      animation: scroll-left 40s linear infinite;
+      width: max-content;
+    }
+
+    .carousel-track:hover,
+    .carousel-track.paused {
+      animation-play-state: paused;
+    }
+
+    .student-card:hover {
+      transform: translateY(-4px);
+    }
+  </style>
+</head>
+<body class="font-sans bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 min-h-screen text-slate-800 antialiased">
+
+  <!-- Header -->
+  <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600 tracking-tight">
+            Absen Kelas XI PPLG 1
+          </h1>
+          <p class="mt-1 text-sm text-slate-500">Sistem presensi harian siswa — hover kartu untuk jeda animasi</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <label for="date-selector" class="text-sm font-medium text-slate-600 whitespace-nowrap">Tanggal:</label>
+          <input
+            type="date"
+            id="date-selector"
+            class="px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-10">
+
+    <!-- Summary Stats -->
+    <section id="stats-section" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <!-- Filled by app.js -->
+    </section>
+
+    <!-- Carousel -->
+    <section aria-label="Daftar siswa">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-semibold text-slate-800">Daftar Siswa</h2>
+        <p class="text-xs sm:text-sm text-slate-500">Klik kartu untuk mengubah status absen</p>
+      </div>
+      <div class="relative overflow-hidden rounded-2xl bg-white/60 border border-slate-200/80 shadow-inner py-6">
+        <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-white/90 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-white/90 to-transparent z-10 pointer-events-none"></div>
+        <div id="carousel-wrapper" class="overflow-hidden">
+          <div id="carousel-track" class="carousel-track flex gap-5 px-4">
+            <!-- Student cards injected by app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Attendance Panel -->
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/80">
+        <h2 class="text-lg sm:text-xl font-semibold text-slate-800">Input Absensi</h2>
+        <p id="selected-date-label" class="text-sm text-slate-500 mt-0.5"></p>
+      </div>
+      <div id="attendance-grid" class="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Attendance rows injected by app.js -->
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h2 class="text-lg sm:text-xl font-semibold text-slate-800">Riwayat Absensi</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Data tersimpan permanen di perangkat Anda</p>
+        </div>
+        <span id="history-count" class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit"></span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 text-slate-600">
+            <tr>
+              <th class="text-left px-5 py-3 font-semibold">Tanggal</th>
+              <th class="text-center px-3 py-3 font-semibold text-green-700">Hadir</th>
+              <th class="text-center px-3 py-3 font-semibold text-yellow-700">Sakit</th>
+              <th class="text-center px-3 py-3 font-semibold text-blue-700">Izin</th>
+              <th class="text-center px-3 py-3 font-semibold text-red-700">Alfa</th>
+              <th class="text-center px-3 py-3 font-semibold text-slate-500">Belum</th>
+              <th class="text-right px-5 py-3 font-semibold">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="history-body">
+            <!-- History rows injected by app.js -->
+          </tbody>
+        </table>
+      </div>
+      <p id="history-empty" class="hidden text-center text-slate-400 py-10 text-sm">Belum ada riwayat absensi.</p>
+    </section>
+  </main>
+
+  <!-- Student Detail Modal -->
+  <div id="modal-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4" aria-hidden="true">
+    <div
+      id="modal-panel"
+      class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all scale-95 opacity-0"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-student-name"
+    >
+      <div class="p-6 sm:p-8">
+        <div class="flex justify-between items-start mb-6">
+          <div class="flex items-center gap-4">
+            <div id="modal-avatar" class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-lg"></div>
+            <div>
+              <h3 id="modal-student-name" class="text-xl font-bold text-slate-900"></h3>
+              <p id="modal-student-id" class="text-sm text-slate-500"></p>
+            </div>
+          </div>
+          <button id="modal-close" type="button" class="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Tutup">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <p class="text-sm text-slate-600 mb-4">Pilih status kehadiran untuk tanggal <span id="modal-date-label" class="font-semibold text-blue-600"></span>:</p>
+
+        <div id="modal-status-buttons" class="grid grid-cols-2 gap-3">
+          <!-- Status buttons injected by app.js -->
+        </div>
+
+        <button id="modal-clear" type="button" class="mt-4 w-full py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+          Reset status (Belum Absen)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center text-xs text-slate-400 py-8">
+    Absen Kelas XI PPLG 1 &mdash; Data disimpan di localStorage browser
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
