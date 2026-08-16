@@ -1,70 +1,59 @@
-// 1. Import Firebase SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+/**
+ * Absen Kelas XI PPLG 1 — Attendance App
+ * Modular vanilla JS with localStorage persistence
+ */
 
-// 2. Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyB...",
-  authDomain: "absen-xi-pplg-1.firebaseapp.com",
-  databaseURL: "https://absen-xi-pplg-1-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "absen-xi-pplg-1",
-  storageBucket: "absen-xi-pplg-1.appspot.com",
-  messagingSenderId: "905148831315",
-  appId: "1:905148831315:web:38450bf7aebbe2970ad8a6"
-};
+// ── Constants ──────────────────────────────────────────────────────────────
 
-// 3. Inisialisasi Database
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 const STORAGE_KEY = 'xi-pplg-1-attendance';
 
 const STATUS = {
   hadir: { label: 'Hadir', badge: 'bg-green-100 text-green-700 ring-green-200', dot: 'bg-green-500' },
   sakit: { label: 'Sakit', badge: 'bg-yellow-100 text-yellow-700 ring-yellow-200', dot: 'bg-yellow-500' },
-  izin: { label: 'Izin', badge: 'bg-blue-100 text-blue-700 ring-blue-200', dot: 'bg-blue-500' },
-  alfa: { label: 'Alfa', badge: 'bg-red-100 text-red-700 ring-red-200', dot: 'bg-red-500' },
+  izin:  { label: 'Izin',  badge: 'bg-blue-100 text-blue-700 ring-blue-200',     dot: 'bg-blue-500' },
+  alfa:  { label: 'Alfa',  badge: 'bg-red-100 text-red-700 ring-red-200',         dot: 'bg-red-500' },
 };
 
 const STUDENTS = [
-  { id: 's01', name: 'Aira Suci Halifah', initials: 'AS' },
-  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala', initials: 'AE' },
-  { id: 's03', name: 'Alexander Aprilianto', initials: 'AA' },
-  { id: 's04', name: 'Alexander Tibalia', initials: 'AT' },
-  { id: 's05', name: 'Aulia Putri Ramadhani', initials: 'AP' },
-  { id: 's06', name: 'Azuan Zah Razhan', initials: 'AZ' },
-  { id: 's07', name: 'Candra', initials: 'C' },
-  { id: 's08', name: 'Danopan Sidik Agustian Putra', initials: 'DS' },
-  { id: 's09', name: 'Ghaitsa Syakirah Khairunnisa', initials: 'GS' },
-  { id: 's10', name: 'Ilma Zaina Aisyi', initials: 'IZ' },
-  { id: 's11', name: 'Isbat Purwaraga Budiman', initials: 'IP' },
-  { id: 's12', name: 'Julius Gideo Harefa', initials: 'JG' },
-  { id: 's13', name: 'Leni Nirmala', initials: 'LN' },
-  { id: 's14', name: 'Lisnawati', initials: 'L' },
-  { id: 's15', name: 'M.Fajar Herdiansyah', initials: 'FH' },
-  { id: 's16', name: 'M.Fazri Syahnur Agustian', initials: 'FS' },
-  { id: 's17', name: 'Marlan Maulana', initials: 'MM' },
-  { id: 's18', name: 'Meysa Nuralifiani', initials: 'MN' },
-  { id: 's19', name: 'Muhammad Faisal Raahil', initials: 'MR' },
-  { id: 's20', name: 'Muhammad Kautsar AkmalFadlurrahman', initials: 'MK' },
-  { id: 's21', name: 'Muhammad Rafi', initials: 'MR' },
-  { id: 's22', name: 'Muhammad Rafli', initials: 'MR' },
-  { id: 's23', name: 'Muhammad Wildansyah', initials: 'MW' },
-  { id: 's24', name: 'Nadila Arina Wati', initials: 'NW' },
-  { id: 's25', name: 'Nayla Dwi Santang ', initials: 'NS' },
-  { id: 's26', name: 'Neng Siti Rosmawati', initials: 'NS' },
-  { id: 's27', name: 'Raganata Wijaksana', initials: 'RW' },
-  { id: 's28', name: 'Rahma Kayla', initials: 'RK' },
-  { id: 's29', name: 'Ratih', initials: 'R' },
-  { id: 's30', name: 'Rezky Pratama Putra', initials: 'RP' },
-  { id: 's31', name: 'Rifky Saputra', initials: 'RS' },
-  { id: 's32', name: 'Rizki Hadi Maulana', initials: 'RM' },
-  { id: 's33', name: 'Rizquina Al Haira', initials: 'RH' },
-  { id: 's34', name: 'Shafwan Muhammad Isham', initials: 'SI' },
-  { id: 's35', name: 'Supartika', initials: 'S' },
-  { id: 's36', name: 'Tesa Tralia Patusha', initials: 'TP' },
-  { id: 's37', name: 'Widiayanti', initials: 'W' },
-  { id: 's38', name: 'Wulan Patarani', initials: 'WP' },
+  { id: 's01', name: 'Aira Suci Halifah',       initials: 'AS' },
+  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala',      initials: 'AE' },
+  { id: 's03', name: 'Alexander Aprilianto',        initials: 'AA' },
+  { id: 's04', name: 'Alexander Tibalia',      initials: 'AT' },
+  { id: 's05', name: 'Aulia Putri Ramadhani',         initials: 'AP' },
+  { id: 's06', name: 'Azuan Zah Razhan',     initials: 'AZ' },
+  { id: 's07', name: 'Candra',     initials: 'C' },
+  { id: 's08', name: 'Danopan Sidik Agustian Putra',       initials: 'DS' },
+  { id: 's09', name: 'Ghaitsa Syakirah Khairunnisa',     initials: 'GS' },
+  { id: 's10', name: 'Ilma Zaina Aisyi',       initials: 'IZ' },
+  { id: 's11', name: 'Isbat Purwaraga Budiman',      initials: 'IP' },
+  { id: 's12', name: 'Julius Gideo Harefa',      initials: 'JG' },
+  { id: 's13', name: 'Leni Nirmala',    initials: 'LN' },
+  { id: 's14', name: 'Lisnawati',     initials: 'L' },
+  { id: 's15', name: 'M.Fajar Herdiansyah',       initials: 'FH' },
+  { id: 's16', name: 'M.Fazri Syahnur Agustian',       initials: 'FS' },
+  { id: 's17', name: 'Marlan Maulana',      initials: 'MM' },
+  { id: 's18', name: 'Meysa Nuralifiani',        initials: 'MN' },
+  { id: 's19', name: 'Muhammad Faisal Raahil',      initials: 'MR' },
+  { id: 's20', name: 'Muhammad Kautsar AkmalFadlurrahman',         initials: 'MK' },
+  { id: 's21', name: 'Muhammad Rafi',     initials: 'MR' },
+  { id: 's22', name: 'Muhammad Rafli',     initials: 'MR' },
+  { id: 's23', name: 'Muhammad Wildansyah',       initials: 'MW' },
+  { id: 's24', name: 'Nadila Arina Wati',     initials: 'NW' },
+  { id: 's25', name: 'Nayla Dwi Santang ',       initials: 'NS' },
+  { id: 's26', name: 'Neng Siti Rosmawati',      initials: 'NS' },
+  { id: 's27', name: 'Raganata Wijaksana',      initials: 'RW' },
+  { id: 's28', name: 'Rahma Kayla',    initials: 'RK' },
+  { id: 's29', name: 'Ratih',     initials: 'R' },
+  { id: 's30', name: 'Rezky Pratama Putra',       initials: 'RP' },
+  { id: 's31', name: 'Rifky Saputra',     initials: 'RS' },
+  { id: 's32', name: 'Rizki Hadi Maulana',     initials: 'RM' },
+  { id: 's33', name: 'Rizquina Al Haira',       initials: 'RH' },
+  { id: 's34', name: 'Shafwan Muhammad Isham',     initials: 'SI' },
+  { id: 's35', name: 'Supartika',       initials: 'S' },
+  { id: 's36', name: 'Tesa Tralia Patusha',      initials: 'TP' },
+  { id: 's37', name: 'Widiayanti',      initials: 'W' },
+  { id: 's38', name: 'Wulan Patarani',   initials: 'WP' },
 ];
 
 // ── State ──────────────────────────────────────────────────────────────────
@@ -75,23 +64,23 @@ let activeStudentId = null;
 // ── DOM References ─────────────────────────────────────────────────────────
 
 const els = {
-  dateSelector: document.getElementById('date-selector'),
-  statsSection: document.getElementById('stats-section'),
-  carouselTrack: document.getElementById('carousel-track'),
+  dateSelector:   document.getElementById('date-selector'),
+  statsSection:   document.getElementById('stats-section'),
+  carouselTrack:  document.getElementById('carousel-track'),
   attendanceGrid: document.getElementById('attendance-grid'),
   selectedDateLabel: document.getElementById('selected-date-label'),
-  historyBody: document.getElementById('history-body'),
-  historyEmpty: document.getElementById('history-empty'),
-  historyCount: document.getElementById('history-count'),
-  modalOverlay: document.getElementById('modal-overlay'),
-  modalPanel: document.getElementById('modal-panel'),
-  modalAvatar: document.getElementById('modal-avatar'),
-  modalName: document.getElementById('modal-student-name'),
+  historyBody:    document.getElementById('history-body'),
+  historyEmpty:   document.getElementById('history-empty'),
+  historyCount:   document.getElementById('history-count'),
+  modalOverlay:   document.getElementById('modal-overlay'),
+  modalPanel:     document.getElementById('modal-panel'),
+  modalAvatar:    document.getElementById('modal-avatar'),
+  modalName:      document.getElementById('modal-student-name'),
   modalStudentId: document.getElementById('modal-student-id'),
   modalDateLabel: document.getElementById('modal-date-label'),
   modalStatusBtns: document.getElementById('modal-status-buttons'),
-  modalClose: document.getElementById('modal-close'),
-  modalClear: document.getElementById('modal-clear'),
+  modalClose:     document.getElementById('modal-close'),
+  modalClear:     document.getElementById('modal-clear'),
 };
 
 // ── Date Utilities ─────────────────────────────────────────────────────────
@@ -120,35 +109,38 @@ function isToday(iso) {
   return iso === getTodayISO();
 }
 
-// ── Storage (Firebase Realtime Database) ───────────────────────────────────
-
-let attendanceData = {};
-
-function listenToFirebase() {
-  const attendanceRef = ref(db, 'attendance');
-
-  onValue(attendanceRef, (snapshot) => {
-    attendanceData = snapshot.val() || {};
-    refreshUI();
-  });
-}
+// ── Storage ────────────────────────────────────────────────────────────────
 
 function loadAllRecords() {
-  return attendanceData;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveAllRecords(records) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
 }
 
 function getDayRecord(date) {
-  return attendanceData[date] || {};
+  const all = loadAllRecords();
+  return all[date] || {};
 }
 
 function setStudentStatus(date, studentId, status) {
-  const studentRef = ref(db, `attendance/${date}/${studentId}`);
+  const all = loadAllRecords();
+  if (!all[date]) all[date] = {};
 
   if (status === null) {
-    set(studentRef, null);
+    delete all[date][studentId];
+    if (Object.keys(all[date]).length === 0) delete all[date];
   } else {
-    set(studentRef, status);
+    all[date][studentId] = status;
   }
+
+  saveAllRecords(all);
 }
 
 function getStudentStatus(date, studentId) {
@@ -182,8 +174,8 @@ function renderStats() {
   const cards = [
     { key: 'hadir', label: 'Hadir', color: 'text-green-600', bg: 'bg-green-50 border-green-100' },
     { key: 'sakit', label: 'Sakit', color: 'text-yellow-600', bg: 'bg-yellow-50 border-yellow-100' },
-    { key: 'izin', label: 'Izin', color: 'text-blue-600', bg: 'bg-blue-50 border-blue-100' },
-    { key: 'alfa', label: 'Alfa', color: 'text-red-600', bg: 'bg-red-50 border-red-100' },
+    { key: 'izin',  label: 'Izin',  color: 'text-blue-600',  bg: 'bg-blue-50 border-blue-100' },
+    { key: 'alfa',  label: 'Alfa',  color: 'text-red-600',   bg: 'bg-red-50 border-red-100' },
   ];
 
   els.statsSection.innerHTML = cards.map((c) => `
@@ -256,8 +248,8 @@ function buildStatusButtons(studentId, date, compact = false) {
         data-status="${key}"
         class="status-btn ${size} font-semibold rounded-xl border-2 transition-all
           ${active
-        ? `${meta.badge} border-current ring-2 ring-offset-1 ring-current/30 scale-[1.02]`
-        : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'}"
+            ? `${meta.badge} border-current ring-2 ring-offset-1 ring-current/30 scale-[1.02]`
+            : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'}"
       >
         ${meta.label}
       </button>
@@ -302,6 +294,7 @@ function renderAttendanceGrid() {
       const { studentId, status } = btn.dataset;
       const current = getStudentStatus(selectedDate, studentId);
       setStudentStatus(selectedDate, studentId, current === status ? null : status);
+      refreshUI();
     });
   });
 }
@@ -381,6 +374,8 @@ function openModal(studentId) {
       const { status } = btn.dataset;
       const current = getStudentStatus(selectedDate, studentId);
       setStudentStatus(selectedDate, studentId, current === status ? null : status);
+      refreshUI();
+      openModal(studentId);
     });
   });
 
@@ -413,11 +408,6 @@ function refreshUI() {
   renderCarousel();
   renderAttendanceGrid();
   renderHistory();
-
-  // Jika modal sedang terbuka, perbarui juga tombol status di dalam modal
-  if (activeStudentId && !els.modalOverlay.classList.contains('hidden')) {
-    openModal(activeStudentId);
-  }
 }
 
 function initDateSelector() {
@@ -436,6 +426,8 @@ function initModal() {
   els.modalClear.addEventListener('click', () => {
     if (activeStudentId) {
       setStudentStatus(selectedDate, activeStudentId, null);
+      refreshUI();
+      openModal(activeStudentId);
     }
   });
 
@@ -466,7 +458,7 @@ function init() {
   checkDailyReset();
   initDateSelector();
   initModal();
-  listenToFirebase();
+  refreshUI();
 }
 
 document.addEventListener('DOMContentLoaded', init);
