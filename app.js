@@ -1,7 +1,8 @@
-// 1. Tambahkan Import Firebase di baris paling atas
+// 1. Import Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-
-// 2. Masukkan Firebase Config milikmu
+// 2. Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB...",
   authDomain: "absen-xi-pplg-1.firebaseapp.com",
@@ -16,7 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Baru lanjut ke kode bawaanmu:
 const STORAGE_KEY = 'xi-pplg-1-attendance';
 
 const STATUS = {
@@ -133,6 +133,10 @@ function listenToFirebase() {
   });
 }
 
+function loadAllRecords() {
+  return attendanceData;
+}
+
 function getDayRecord(date) {
   return attendanceData[date] || {};
 }
@@ -145,10 +149,6 @@ function setStudentStatus(date, studentId, status) {
   } else {
     set(studentRef, status);
   }
-}
-
-function getStudentStatus(date, studentId) {
-  return getDayRecord(date)[studentId] || null;
 }
 
 function getStudentStatus(date, studentId) {
@@ -302,7 +302,6 @@ function renderAttendanceGrid() {
       const { studentId, status } = btn.dataset;
       const current = getStudentStatus(selectedDate, studentId);
       setStudentStatus(selectedDate, studentId, current === status ? null : status);
-      refreshUI();
     });
   });
 }
@@ -382,8 +381,6 @@ function openModal(studentId) {
       const { status } = btn.dataset;
       const current = getStudentStatus(selectedDate, studentId);
       setStudentStatus(selectedDate, studentId, current === status ? null : status);
-      refreshUI();
-      openModal(studentId);
     });
   });
 
@@ -416,6 +413,11 @@ function refreshUI() {
   renderCarousel();
   renderAttendanceGrid();
   renderHistory();
+
+  // Jika modal sedang terbuka, perbarui juga tombol status di dalam modal
+  if (activeStudentId && !els.modalOverlay.classList.contains('hidden')) {
+    openModal(activeStudentId);
+  }
 }
 
 function initDateSelector() {
@@ -434,8 +436,6 @@ function initModal() {
   els.modalClear.addEventListener('click', () => {
     if (activeStudentId) {
       setStudentStatus(selectedDate, activeStudentId, null);
-      refreshUI();
-      openModal(activeStudentId);
     }
   });
 
