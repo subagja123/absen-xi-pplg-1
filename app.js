@@ -1,6 +1,5 @@
 // 1. Tambahkan Import Firebase di baris paling atas
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
 
 // 2. Masukkan Firebase Config milikmu
 const firebaseConfig = {
