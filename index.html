@@ -161,6 +161,35 @@
     Absen Kelas XI PPLG 1 &mdash; Data disimpan di localStorage browser
   </footer>
 
+<!-- Tag Firebase ditaro TEPAT SEBELUM app.js -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-analytics.js";
+    import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnVOutBXznjhM-V4qc282L76Cg3NCzaYM",
+      authDomain: "absen-kelas-xi-pplg-1.firebaseapp.com",
+      projectId: "absen-kelas-xi-pplg-1",
+      storageBucket: "absen-kelas-xi-pplg-1.firebasestorage.app",
+      messagingSenderId: "312539064937",
+      appId: "1:312539064937:web:615e94f27d7785d418d0f8",
+      measurementId: "G-6BX92J88PQ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase(app);
+
+    // Menyimpan fungsi Firebase ke window agar bisa dipanggil oleh app.js
+    window.firebaseDB = db;
+    window.dbRef = ref;
+    window.dbOnValue = onValue;
+    window.dbSet = set;
+    window.dbRemove = remove;
+  </script>
+
+  <!-- app.js dipanggil SETELAH script Firebase di atas -->
   <script src="app.js"></script>
 </body>
 </html>
