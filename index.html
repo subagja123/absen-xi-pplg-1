@@ -9,6 +9,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    /* Background Glow Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-15px) scale(1.05); }
+    }
+
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.45;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    /* Carousel Smooth Scrolling */
     @keyframes scroll-left {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -24,29 +40,56 @@
       animation-play-state: paused;
     }
 
+    /* Card Micro-interactions */
+    .student-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
     .student-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 24px -10px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Glassmorphism Styling */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    /* Table Hover Styling */
+    tbody tr {
+      transition: background-color 0.2s ease;
+    }
+    tbody tr:hover {
+      background-color: rgba(241, 245, 249, 0.8);
     }
   </style>
 </head>
-<body class="font-sans bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 min-h-screen text-slate-800 antialiased">
+<body class="font-sans bg-slate-50 min-h-screen text-slate-800 antialiased relative overflow-x-hidden">
+
+  <!-- Hiasan Animated Orbs Latar Belakang -->
+  <div class="bg-blob w-96 h-96 bg-blue-300 top-[-100px] left-[-100px]"></div>
+  <div class="bg-blob w-96 h-96 bg-indigo-300 bottom-[10%] right-[-100px]" style="animation-delay: -4s;"></div>
+  <div class="bg-blob w-72 h-72 bg-sky-200 top-[40%] left-[20%]" style="animation-delay: -2s;"></div>
 
   <!-- Header -->
-  <header class="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40 shadow-sm">
+  <header class="glass-card sticky top-0 z-40 shadow-sm transition-all duration-300 border-b border-slate-200/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-600 tracking-tight">
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 tracking-tight">
             Absen Kelas XI PPLG 1
           </h1>
-          <p class="mt-1 text-sm text-slate-500">Sistem presensi harian siswa — hover kartu untuk jeda animasi</p>
+          <p class="mt-1 text-sm text-slate-500 font-medium">Sistem presensi harian siswa &mdash; hover kartu untuk jeda animasi</p>
         </div>
         <div class="flex items-center gap-3">
-          <label for="date-selector" class="text-sm font-medium text-slate-600 whitespace-nowrap">Tanggal:</label>
+          <label for="date-selector" class="text-sm font-semibold text-slate-600 whitespace-nowrap">Tanggal:</label>
           <input
             type="date"
             id="date-selector"
-            class="px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+            class="px-3.5 py-2 rounded-xl border border-slate-300/80 bg-white/90 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm hover:border-blue-400 transition-all cursor-pointer"
           />
         </div>
       </div>
@@ -63,12 +106,14 @@
     <!-- Carousel -->
     <section aria-label="Daftar siswa">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg sm:text-xl font-semibold text-slate-800">Daftar Siswa</h2>
-        <p class="text-xs sm:text-sm text-slate-500">Klik kartu untuk mengubah status absen</p>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
+          <span>Daftar Siswa</span>
+        </h2>
+        <p class="text-xs sm:text-sm font-medium text-slate-500 bg-white/60 px-3 py-1 rounded-full border border-slate-200/60 shadow-xs">Klik kartu untuk mengubah status absen</p>
       </div>
-      <div class="relative overflow-hidden rounded-2xl bg-white/60 border border-slate-200/80 shadow-inner py-6">
-        <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-white/90 to-transparent z-10 pointer-events-none"></div>
-        <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-white/90 to-transparent z-10 pointer-events-none"></div>
+      <div class="relative overflow-hidden rounded-2xl glass-card border border-slate-200/80 shadow-md py-6">
+        <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-slate-50/90 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-slate-50/90 to-transparent z-10 pointer-events-none"></div>
         <div id="carousel-wrapper" class="overflow-hidden">
           <div id="carousel-track" class="carousel-track flex gap-5 px-4">
             <!-- Student cards injected by app.js -->
@@ -78,10 +123,12 @@
     </section>
 
     <!-- Attendance Panel -->
-    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/80">
-        <h2 class="text-lg sm:text-xl font-semibold text-slate-800">Input Absensi</h2>
-        <p id="selected-date-label" class="text-sm text-slate-500 mt-0.5"></p>
+    <section class="glass-card rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/60 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-800">Input Absensi</h2>
+          <p id="selected-date-label" class="text-sm font-medium text-blue-600 mt-0.5"></p>
+        </div>
       </div>
       <div id="attendance-grid" class="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Attendance rows injected by app.js -->
@@ -89,41 +136,41 @@
     </section>
 
     <!-- History -->
-    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <section class="glass-card rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
-          <h2 class="text-lg sm:text-xl font-semibold text-slate-800">Riwayat Absensi</h2>
-          <p class="text-sm text-slate-500 mt-0.5">Data tersimpan permanen di perangkat Anda</p>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-800">Riwayat Absensi</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Data tersinkronisasi otomatis secara realtime</p>
         </div>
-        <span id="history-count" class="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit"></span>
+        <span id="history-count" class="text-xs font-semibold text-blue-600 bg-blue-100/80 px-3 py-1 rounded-full w-fit border border-blue-200/50"></span>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
-          <thead class="bg-slate-50 text-slate-600">
+          <thead class="bg-slate-100/70 text-slate-700">
             <tr>
-              <th class="text-left px-5 py-3 font-semibold">Tanggal</th>
-              <th class="text-center px-3 py-3 font-semibold text-green-700">Hadir</th>
-              <th class="text-center px-3 py-3 font-semibold text-yellow-700">Sakit</th>
-              <th class="text-center px-3 py-3 font-semibold text-blue-700">Izin</th>
-              <th class="text-center px-3 py-3 font-semibold text-red-700">Alfa</th>
-              <th class="text-center px-3 py-3 font-semibold text-slate-500">Belum</th>
-              <th class="text-right px-5 py-3 font-semibold">Aksi</th>
+              <th class="text-left px-5 py-3.5 font-bold">Tanggal</th>
+              <th class="text-center px-3 py-3.5 font-bold text-green-700">Hadir</th>
+              <th class="text-center px-3 py-3.5 font-bold text-amber-600">Sakit</th>
+              <th class="text-center px-3 py-3.5 font-bold text-blue-700">Izin</th>
+              <th class="text-center px-3 py-3.5 font-bold text-rose-700">Alfa</th>
+              <th class="text-center px-3 py-3.5 font-bold text-slate-500">Belum</th>
+              <th class="text-right px-5 py-3.5 font-bold">Aksi</th>
             </tr>
           </thead>
-          <tbody id="history-body">
+          <tbody id="history-body" class="divide-y divide-slate-100">
             <!-- History rows injected by app.js -->
           </tbody>
         </table>
       </div>
-      <p id="history-empty" class="hidden text-center text-slate-400 py-10 text-sm">Belum ada riwayat absensi.</p>
+      <p id="history-empty" class="hidden text-center text-slate-400 py-10 text-sm italic">Belum ada riwayat absensi.</p>
     </section>
   </main>
 
   <!-- Student Detail Modal -->
-  <div id="modal-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4" aria-hidden="true">
+  <div id="modal-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden items-center justify-center p-4 transition-opacity duration-300" aria-hidden="true">
     <div
       id="modal-panel"
-      class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all scale-95 opacity-0"
+      class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all scale-95 opacity-0 border border-slate-100"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-student-name"
@@ -131,13 +178,13 @@
       <div class="p-6 sm:p-8">
         <div class="flex justify-between items-start mb-6">
           <div class="flex items-center gap-4">
-            <div id="modal-avatar" class="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-lg"></div>
+            <div id="modal-avatar" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-blue-500/20"></div>
             <div>
               <h3 id="modal-student-name" class="text-xl font-bold text-slate-900"></h3>
-              <p id="modal-student-id" class="text-sm text-slate-500"></p>
+              <p id="modal-student-id" class="text-sm font-medium text-slate-500"></p>
             </div>
           </div>
-          <button id="modal-close" type="button" class="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Tutup">
+          <button id="modal-close" type="button" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Tutup">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -150,18 +197,18 @@
           <!-- Status buttons injected by app.js -->
         </div>
 
-        <button id="modal-clear" type="button" class="mt-4 w-full py-2.5 text-sm font-medium text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors">
+        <button id="modal-clear" type="button" class="mt-4 w-full py-2.5 text-sm font-semibold text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all">
           Reset status (Belum Absen)
         </button>
       </div>
     </div>
   </div>
 
-  <footer class="text-center text-xs text-slate-400 py-8">
-    Absen Kelas XI PPLG 1 &mdash; Data disimpan di localStorage browser
+  <footer class="text-center text-xs font-medium text-slate-400 py-8">
+    Absen Kelas XI PPLG 1 &mdash; Terintegrasi dengan Firebase Realtime Database
   </footer>
 
-<!-- Tag Firebase ditaro TEPAT SEBELUM app.js -->
+  <!-- Tag Firebase ditaro TEPAT SEBELUM app.js -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-analytics.js";
@@ -170,7 +217,7 @@
     const firebaseConfig = {
       apiKey: "AIzaSyBnVOutBXznjhM-V4qc282L76Cg3NCzaYM",
       authDomain: "absen-kelas-xi-pplg-1.firebaseapp.com",
-      databaseURL: "https://absen-kelas-xi-pplg-1-default-rtdb.asia-southeast1.firebasedatabase.app", // <-- TAMBAHKAN BARIS INI
+      databaseURL: "https://absen-kelas-xi-pplg-1-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "absen-kelas-xi-pplg-1",
       storageBucket: "absen-kelas-xi-pplg-1.firebasestorage.app",
       messagingSenderId: "312539064937",
