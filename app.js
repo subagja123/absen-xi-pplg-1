@@ -129,6 +129,7 @@ function getDayRecord(date) {
   return all[date] || {};
 }
 
+// 1. Fungsi setStudentStatus yang panjang (yang sudah diisi Firebase)
 function setStudentStatus(date, studentId, status) {
   const all = loadAllRecords();
   if (!all[date]) all[date] = {};
@@ -141,8 +142,34 @@ function setStudentStatus(date, studentId, status) {
   }
 
   saveAllRecords(all);
+
+  if (window.firebaseDB && window.dbSet && window.dbRef) {
+    const pathRef = window.dbRef(window.firebaseDB, `attendance/${date}`);
+    if (all[date]) {
+      window.dbSet(pathRef, all[date]);
+    } else {
+      window.dbRemove(pathRef);
+    }
+  }
 }
 
+// 2. Fungsi initFirebaseSync ditaruh DI SINI (di tengah)
+function initFirebaseSync() {
+  if (window.firebaseDB && window.dbOnValue && window.dbRef) {
+    const attendanceRef = window.dbRef(window.firebaseDB, 'attendance');
+    
+    window.dbOnValue(attendanceRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        saveAllRecords(data);
+        if (typeof renderAll === 'function') renderAll();
+        else if (typeof refreshUI === 'function') refreshUI();
+      }
+    });
+  }
+}
+
+// 3. Fungsi getStudentStatus(date, studentId)
 function getStudentStatus(date, studentId) {
   return getDayRecord(date)[studentId] || null;
 }
@@ -458,7 +485,7 @@ function init() {
   checkDailyReset();
   initDateSelector();
   initModal();
-  refreshUI();
+  initFirebaseSync(); // <-- Tambahkan baris ini di dalam fungsi init()
 }
 
 document.addEventListener('DOMContentLoaded', init);
