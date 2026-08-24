@@ -1,10 +1,9 @@
 /**
  * Absen Kelas XI PPLG 1 — Attendance App
- * Modular vanilla JS with localStorage persistence
+ * Integrated with Firebase Realtime Database
  */
 
 // ── Constants ──────────────────────────────────────────────────────────────
-
 
 const STORAGE_KEY = 'xi-pplg-1-attendance';
 
@@ -16,44 +15,44 @@ const STATUS = {
 };
 
 const STUDENTS = [
-  { id: 's01', name: 'Aira Suci Halifah',       initials: 'AS' },
-  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala',      initials: 'AE' },
-  { id: 's03', name: 'Alexander Aprilianto',        initials: 'AA' },
-  { id: 's04', name: 'Alexander Tibalia',      initials: 'AT' },
-  { id: 's05', name: 'Aulia Putri Ramadhani',         initials: 'AP' },
-  { id: 's06', name: 'Azuan Zah Razhan',     initials: 'AZ' },
-  { id: 's07', name: 'Candra',     initials: 'C' },
-  { id: 's08', name: 'Danopan Sidik Agustian Putra',       initials: 'DS' },
-  { id: 's09', name: 'Ghaitsa Syakirah Khairunnisa',     initials: 'GS' },
-  { id: 's10', name: 'Ilma Zaina Aisyi',       initials: 'IZ' },
-  { id: 's11', name: 'Isbat Purwaraga Budiman',      initials: 'IP' },
-  { id: 's12', name: 'Julius Gideo Harefa',      initials: 'JG' },
-  { id: 's13', name: 'Leni Nirmala',    initials: 'LN' },
-  { id: 's14', name: 'Lisnawati',     initials: 'L' },
-  { id: 's15', name: 'M.Fajar Herdiansyah',       initials: 'FH' },
-  { id: 's16', name: 'M.Fazri Syahnur Agustian',       initials: 'FS' },
-  { id: 's17', name: 'Marlan Maulana',      initials: 'MM' },
-  { id: 's18', name: 'Meysa Nuralifiani',        initials: 'MN' },
-  { id: 's19', name: 'Muhammad Faisal Raahil',      initials: 'MR' },
-  { id: 's20', name: 'Muhammad Kautsar AkmalFadlurrahman',         initials: 'MK' },
-  { id: 's21', name: 'Muhammad Rafi',     initials: 'MR' },
-  { id: 's22', name: 'Muhammad Rafli',     initials: 'MR' },
-  { id: 's23', name: 'Muhammad Wildansyah',       initials: 'MW' },
-  { id: 's24', name: 'Nadila Arina Wati',     initials: 'NW' },
-  { id: 's25', name: 'Nayla Dwi Santang ',       initials: 'NS' },
-  { id: 's26', name: 'Neng Siti Rosmawati',      initials: 'NS' },
-  { id: 's27', name: 'Raganata Wijaksana',      initials: 'RW' },
-  { id: 's28', name: 'Rahma Kayla',    initials: 'RK' },
-  { id: 's29', name: 'Ratih',     initials: 'R' },
-  { id: 's30', name: 'Rezky Pratama Putra',       initials: 'RP' },
-  { id: 's31', name: 'Rifky Saputra',     initials: 'RS' },
-  { id: 's32', name: 'Rizki Hadi Maulana',     initials: 'RM' },
-  { id: 's33', name: 'Rizquina Al Haira',       initials: 'RH' },
-  { id: 's34', name: 'Shafwan Muhammad Isham',     initials: 'SI' },
-  { id: 's35', name: 'Supartika',       initials: 'S' },
-  { id: 's36', name: 'Tesa Tralia Patusha',      initials: 'TP' },
-  { id: 's37', name: 'Widiayanti',      initials: 'W' },
-  { id: 's38', name: 'Wulan Patarani',   initials: 'WP' },
+  { id: 's01', name: 'Aira Suci Halifah', initials: 'AS' },
+  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala', initials: 'AE' },
+  { id: 's03', name: 'Alexander Aprilianto', initials: 'AA' },
+  { id: 's04', name: 'Alexander Tibalia', initials: 'AT' },
+  { id: 's05', name: 'Aulia Putri Ramadhani', initials: 'AP' },
+  { id: 's06', name: 'Azuan Zah Razhan', initials: 'AZ' },
+  { id: 's07', name: 'Candra', initials: 'C' },
+  { id: 's08', name: 'Danopan Sidik Agustian Putra', initials: 'DS' },
+  { id: 's09', name: 'Ghaitsa Syakirah Khairunnisa', initials: 'GS' },
+  { id: 's10', name: 'Ilma Zaina Aisyi', initials: 'IZ' },
+  { id: 's11', name: 'Isbat Purwaraga Budiman', initials: 'IP' },
+  { id: 's12', name: 'Julius Gideo Harefa', initials: 'JG' },
+  { id: 's13', name: 'Leni Nirmala', initials: 'LN' },
+  { id: 's14', name: 'Lisnawati', initials: 'L' },
+  { id: 's15', name: 'M.Fajar Herdiansyah', initials: 'FH' },
+  { id: 's16', name: 'M.Fazri Syahnur Agustian', initials: 'FS' },
+  { id: 's17', name: 'Marlan Maulana', initials: 'MM' },
+  { id: 's18', name: 'Meysa Nuralifiani', initials: 'MN' },
+  { id: 's19', name: 'Muhammad Faisal Raahil', initials: 'MR' },
+  { id: 's20', name: 'Muhammad Kautsar AkmalFadlurrahman', initials: 'MK' },
+  { id: 's21', name: 'Muhammad Rafi', initials: 'MR' },
+  { id: 's22', name: 'Muhammad Rafli', initials: 'MR' },
+  { id: 's23', name: 'Muhammad Wildansyah', initials: 'MW' },
+  { id: 's24', name: 'Nadila Arina Wati', initials: 'NW' },
+  { id: 's25', name: 'Nayla Dwi Santang ', initials: 'NS' },
+  { id: 's26', name: 'Neng Siti Rosmawati', initials: 'NS' },
+  { id: 's27', name: 'Raganata Wijaksana', initials: 'RW' },
+  { id: 's28', name: 'Rahma Kayla', initials: 'RK' },
+  { id: 's29', name: 'Ratih', initials: 'R' },
+  { id: 's30', name: 'Rezky Pratama Putra', initials: 'RP' },
+  { id: 's31', name: 'Rifky Saputra', initials: 'RS' },
+  { id: 's32', name: 'Rizki Hadi Maulana', initials: 'RM' },
+  { id: 's33', name: 'Rizquina Al Haira', initials: 'RH' },
+  { id: 's34', name: 'Shafwan Muhammad Isham', initials: 'SI' },
+  { id: 's35', name: 'Supartika', initials: 'S' },
+  { id: 's36', name: 'Tesa Tralia Patusha', initials: 'TP' },
+  { id: 's37', name: 'Widiayanti', initials: 'W' },
+  { id: 's38', name: 'Wulan Patarani', initials: 'WP' },
 ];
 
 // ── State ──────────────────────────────────────────────────────────────────
@@ -64,23 +63,23 @@ let activeStudentId = null;
 // ── DOM References ─────────────────────────────────────────────────────────
 
 const els = {
-  dateSelector:   document.getElementById('date-selector'),
-  statsSection:   document.getElementById('stats-section'),
-  carouselTrack:  document.getElementById('carousel-track'),
+  dateSelector: document.getElementById('date-selector'),
+  statsSection: document.getElementById('stats-section'),
+  carouselTrack: document.getElementById('carousel-track'),
   attendanceGrid: document.getElementById('attendance-grid'),
   selectedDateLabel: document.getElementById('selected-date-label'),
-  historyBody:    document.getElementById('history-body'),
-  historyEmpty:   document.getElementById('history-empty'),
-  historyCount:   document.getElementById('history-count'),
-  modalOverlay:   document.getElementById('modal-overlay'),
-  modalPanel:     document.getElementById('modal-panel'),
-  modalAvatar:    document.getElementById('modal-avatar'),
-  modalName:      document.getElementById('modal-student-name'),
+  historyBody: document.getElementById('history-body'),
+  historyEmpty: document.getElementById('history-empty'),
+  historyCount: document.getElementById('history-count'),
+  modalOverlay: document.getElementById('modal-overlay'),
+  modalPanel: document.getElementById('modal-panel'),
+  modalAvatar: document.getElementById('modal-avatar'),
+  modalName: document.getElementById('modal-student-name'),
   modalStudentId: document.getElementById('modal-student-id'),
   modalDateLabel: document.getElementById('modal-date-label'),
   modalStatusBtns: document.getElementById('modal-status-buttons'),
-  modalClose:     document.getElementById('modal-close'),
-  modalClear:     document.getElementById('modal-clear'),
+  modalClose: document.getElementById('modal-close'),
+  modalClear: document.getElementById('modal-clear'),
 };
 
 // ── Date Utilities ─────────────────────────────────────────────────────────
@@ -98,6 +97,7 @@ function formatDateISO(date) {
 }
 
 function formatDateDisplay(iso) {
+  if (!iso) return '';
   const [y, m, d] = iso.split('-');
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
   const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -109,7 +109,7 @@ function isToday(iso) {
   return iso === getTodayISO();
 }
 
-// ── Storage ────────────────────────────────────────────────────────────────
+// ── Storage & Firebase Helper Functions ────────────────────────────────────
 
 function loadAllRecords() {
   try {
@@ -129,7 +129,10 @@ function getDayRecord(date) {
   return all[date] || {};
 }
 
-// 1. Fungsi setStudentStatus yang panjang (yang sudah diisi Firebase)
+function getStudentStatus(date, studentId) {
+  return getDayRecord(date)[studentId] || null;
+}
+
 function setStudentStatus(date, studentId, status) {
   const all = loadAllRecords();
   if (!all[date]) all[date] = {};
@@ -141,8 +144,10 @@ function setStudentStatus(date, studentId, status) {
     all[date][studentId] = status;
   }
 
+  // 1. Simpan ke Local Storage
   saveAllRecords(all);
 
+  // 2. Kirim ke Firebase Realtime Database
   if (window.firebaseDB && window.dbSet && window.dbRef) {
     const pathRef = window.dbRef(window.firebaseDB, `attendance/${date}`);
     if (all[date]) {
@@ -151,27 +156,25 @@ function setStudentStatus(date, studentId, status) {
       window.dbRemove(pathRef);
     }
   }
+
+  refreshUI();
 }
 
-// 2. Fungsi initFirebaseSync ditaruh DI SINI (di tengah)
 function initFirebaseSync() {
   if (window.firebaseDB && window.dbOnValue && window.dbRef) {
     const attendanceRef = window.dbRef(window.firebaseDB, 'attendance');
     
+    // Menerima update data realtime dari Firebase
     window.dbOnValue(attendanceRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
         saveAllRecords(data);
-        if (typeof renderAll === 'function') renderAll();
-        else if (typeof refreshUI === 'function') refreshUI();
+      } else {
+        saveAllRecords({});
       }
+      refreshUI();
     });
   }
-}
-
-// 3. Fungsi getStudentStatus(date, studentId)
-function getStudentStatus(date, studentId) {
-  return getDayRecord(date)[studentId] || null;
 }
 
 // ── Status Helpers ─────────────────────────────────────────────────────────
@@ -194,9 +197,10 @@ function countByStatus(date) {
   return counts;
 }
 
-// ── Render: Stats ──────────────────────────────────────────────────────────
+// ── Render Functions ───────────────────────────────────────────────────────
 
 function renderStats() {
+  if (!els.statsSection) return;
   const counts = countByStatus(selectedDate);
   const cards = [
     { key: 'hadir', label: 'Hadir', color: 'text-green-600', bg: 'bg-green-50 border-green-100' },
@@ -213,8 +217,6 @@ function renderStats() {
   `).join('');
 }
 
-// ── Render: Student Card HTML ───────────────────────────────────────────────
-
 function buildStudentCard(student, date) {
   const status = getStudentStatus(date, student.id);
   const meta = getStatusMeta(status);
@@ -225,7 +227,6 @@ function buildStudentCard(student, date) {
       data-student-id="${student.id}"
       tabindex="0"
       role="button"
-      aria-label="Absen ${student.name}"
     >
       <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
       <div class="p-5 flex flex-col items-center text-center">
@@ -244,23 +245,14 @@ function buildStudentCard(student, date) {
 }
 
 function renderCarousel() {
+  if (!els.carouselTrack) return;
   const cards = STUDENTS.map((s) => buildStudentCard(s, selectedDate)).join('');
   els.carouselTrack.innerHTML = cards + cards;
 
   els.carouselTrack.querySelectorAll('.student-card').forEach((card) => {
     card.addEventListener('click', () => openModal(card.dataset.studentId));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openModal(card.dataset.studentId);
-      }
-    });
-    card.addEventListener('mouseenter', () => els.carouselTrack.classList.add('paused'));
-    card.addEventListener('mouseleave', () => els.carouselTrack.classList.remove('paused'));
   });
 }
-
-// ── Render: Attendance Grid ────────────────────────────────────────────────
 
 function buildStatusButtons(studentId, date, compact = false) {
   const current = getStudentStatus(date, studentId);
@@ -285,11 +277,12 @@ function buildStatusButtons(studentId, date, compact = false) {
 }
 
 function renderAttendanceGrid() {
-  const label = isToday(selectedDate)
-    ? `Hari ini — ${formatDateDisplay(selectedDate)}`
-    : formatDateDisplay(selectedDate);
-
-  els.selectedDateLabel.textContent = label;
+  if (!els.attendanceGrid) return;
+  if (els.selectedDateLabel) {
+    els.selectedDateLabel.textContent = isToday(selectedDate)
+      ? `Hari ini — ${formatDateDisplay(selectedDate)}`
+      : formatDateDisplay(selectedDate);
+  }
 
   els.attendanceGrid.innerHTML = STUDENTS.map((student) => {
     const status = getStudentStatus(selectedDate, student.id);
@@ -321,26 +314,24 @@ function renderAttendanceGrid() {
       const { studentId, status } = btn.dataset;
       const current = getStudentStatus(selectedDate, studentId);
       setStudentStatus(selectedDate, studentId, current === status ? null : status);
-      refreshUI();
     });
   });
 }
 
-// ── Render: History ──────────────────────────────────────────────────────────
-
 function renderHistory() {
+  if (!els.historyBody) return;
   const all = loadAllRecords();
   const dates = Object.keys(all).sort((a, b) => b.localeCompare(a));
 
-  els.historyCount.textContent = `${dates.length} hari tercatat`;
+  if (els.historyCount) els.historyCount.textContent = `${dates.length} hari tercatat`;
 
   if (dates.length === 0) {
     els.historyBody.innerHTML = '';
-    els.historyEmpty.classList.remove('hidden');
+    if (els.historyEmpty) els.historyEmpty.classList.remove('hidden');
     return;
   }
 
-  els.historyEmpty.classList.add('hidden');
+  if (els.historyEmpty) els.historyEmpty.classList.add('hidden');
 
   els.historyBody.innerHTML = dates.map((date) => {
     const counts = countByStatus(date);
@@ -374,61 +365,11 @@ function renderHistory() {
   els.historyBody.querySelectorAll('.history-view-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       selectedDate = btn.dataset.date;
-      els.dateSelector.value = selectedDate;
+      if (els.dateSelector) els.dateSelector.value = selectedDate;
       refreshUI();
-      document.getElementById('attendance-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 }
-
-// ── Modal ───────────────────────────────────────────────────────────────────
-
-function openModal(studentId) {
-  const student = STUDENTS.find((s) => s.id === studentId);
-  if (!student) return;
-
-  activeStudentId = studentId;
-
-  els.modalAvatar.textContent = student.initials;
-  els.modalName.textContent = student.name;
-  els.modalStudentId.textContent = `NIS / ID: ${student.id.toUpperCase()}`;
-  els.modalDateLabel.textContent = formatDateDisplay(selectedDate);
-
-  els.modalStatusBtns.innerHTML = buildStatusButtons(studentId, selectedDate);
-
-  els.modalStatusBtns.querySelectorAll('.status-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const { status } = btn.dataset;
-      const current = getStudentStatus(selectedDate, studentId);
-      setStudentStatus(selectedDate, studentId, current === status ? null : status);
-      refreshUI();
-      openModal(studentId);
-    });
-  });
-
-  els.modalOverlay.classList.remove('hidden');
-  els.modalOverlay.classList.add('flex');
-  els.modalOverlay.setAttribute('aria-hidden', 'false');
-
-  requestAnimationFrame(() => {
-    els.modalPanel.classList.remove('scale-95', 'opacity-0');
-    els.modalPanel.classList.add('scale-100', 'opacity-100');
-  });
-}
-
-function closeModal() {
-  els.modalPanel.classList.remove('scale-100', 'opacity-100');
-  els.modalPanel.classList.add('scale-95', 'opacity-0');
-  els.modalOverlay.setAttribute('aria-hidden', 'true');
-
-  setTimeout(() => {
-    els.modalOverlay.classList.add('hidden');
-    els.modalOverlay.classList.remove('flex');
-    activeStudentId = null;
-  }, 200);
-}
-
-// ── Refresh & Init ──────────────────────────────────────────────────────────
 
 function refreshUI() {
   renderStats();
@@ -437,55 +378,65 @@ function refreshUI() {
   renderHistory();
 }
 
-function initDateSelector() {
-  els.dateSelector.value = selectedDate;
-  els.dateSelector.max = getTodayISO();
+// ── Modal Handlers ─────────────────────────────────────────────────────────
 
-  els.dateSelector.addEventListener('change', (e) => {
-    selectedDate = e.target.value || getTodayISO();
-    refreshUI();
-  });
-}
+function openModal(studentId) {
+  const student = STUDENTS.find((s) => s.id === studentId);
+  if (!student || !els.modalOverlay) return;
 
-function initModal() {
-  els.modalClose.addEventListener('click', closeModal);
+  activeStudentId = studentId;
 
-  els.modalClear.addEventListener('click', () => {
-    if (activeStudentId) {
-      setStudentStatus(selectedDate, activeStudentId, null);
-      refreshUI();
-      openModal(activeStudentId);
-    }
-  });
+  if (els.modalAvatar) els.modalAvatar.textContent = student.initials;
+  if (els.modalName) els.modalName.textContent = student.name;
+  if (els.modalStudentId) els.modalStudentId.textContent = `NIS / ID: ${student.id.toUpperCase()}`;
+  if (els.modalDateLabel) els.modalDateLabel.textContent = formatDateDisplay(selectedDate);
 
-  els.modalOverlay.addEventListener('click', (e) => {
-    if (e.target === els.modalOverlay) closeModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !els.modalOverlay.classList.contains('hidden')) {
-      closeModal();
-    }
-  });
-}
-
-function checkDailyReset() {
-  const today = getTodayISO();
-  const lastVisit = localStorage.getItem(`${STORAGE_KEY}-last-visit`);
-
-  if (lastVisit && lastVisit !== today) {
-    selectedDate = today;
-    els.dateSelector.value = today;
+  if (els.modalStatusBtns) {
+    els.modalStatusBtns.innerHTML = buildStatusButtons(studentId, selectedDate);
+    els.modalStatusBtns.querySelectorAll('.status-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const { status } = btn.dataset;
+        const current = getStudentStatus(selectedDate, studentId);
+        setStudentStatus(selectedDate, studentId, current === status ? null : status);
+        openModal(studentId);
+      });
+    });
   }
 
-  localStorage.setItem(`${STORAGE_KEY}-last-visit`, today);
+  els.modalOverlay.classList.remove('hidden');
+  els.modalOverlay.classList.add('flex');
 }
 
+function closeModal() {
+  if (!els.modalOverlay) return;
+  els.modalOverlay.classList.add('hidden');
+  els.modalOverlay.classList.remove('flex');
+  activeStudentId = null;
+}
+
+// ── Initialization ─────────────────────────────────────────────────────────
+
 function init() {
-  checkDailyReset();
-  initDateSelector();
-  initModal();
-  initFirebaseSync(); // <-- Tambahkan baris ini di dalam fungsi init()
+  if (els.dateSelector) {
+    els.dateSelector.value = selectedDate;
+    els.dateSelector.addEventListener('change', (e) => {
+      selectedDate = e.target.value || getTodayISO();
+      refreshUI();
+    });
+  }
+
+  if (els.modalClose) els.modalClose.addEventListener('click', closeModal);
+  if (els.modalClear) {
+    els.modalClear.addEventListener('click', () => {
+      if (activeStudentId) {
+        setStudentStatus(selectedDate, activeStudentId, null);
+        openModal(activeStudentId);
+      }
+    });
+  }
+
+  refreshUI();
+  initFirebaseSync();
 }
 
 document.addEventListener('DOMContentLoaded', init);
