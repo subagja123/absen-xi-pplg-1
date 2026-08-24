@@ -166,41 +166,39 @@
     </section>
   </main>
 
-  <!-- Student Detail Modal -->
-  <div id="modal-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden items-center justify-center p-4 transition-opacity duration-300" aria-hidden="true">
+<!-- Student Detail Modal -->
+  <div id="modal-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden items-center justify-center p-4 transition-all duration-300" aria-hidden="true">
     <div
       id="modal-panel"
-      class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all scale-95 opacity-0 border border-slate-100"
+      class="bg-white rounded-2xl shadow-2xl w-full max-w-md relative z-10 p-6 sm:p-8 border border-slate-100 transform transition-all duration-300 scale-100 opacity-100"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-student-name"
     >
-      <div class="p-6 sm:p-8">
-        <div class="flex justify-between items-start mb-6">
-          <div class="flex items-center gap-4">
-            <div id="modal-avatar" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-blue-500/20"></div>
-            <div>
-              <h3 id="modal-student-name" class="text-xl font-bold text-slate-900"></h3>
-              <p id="modal-student-id" class="text-sm font-medium text-slate-500"></p>
-            </div>
+      <div class="flex justify-between items-start mb-6">
+        <div class="flex items-center gap-4">
+          <div id="modal-avatar" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-blue-500/20"></div>
+          <div>
+            <h3 id="modal-student-name" class="text-xl font-bold text-slate-900"></h3>
+            <p id="modal-student-id" class="text-sm font-medium text-slate-500"></p>
           </div>
-          <button id="modal-close" type="button" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Tutup">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
         </div>
-
-        <p class="text-sm text-slate-600 mb-4">Pilih status kehadiran untuk tanggal <span id="modal-date-label" class="font-semibold text-blue-600"></span>:</p>
-
-        <div id="modal-status-buttons" class="grid grid-cols-2 gap-3">
-          <!-- Status buttons injected by app.js -->
-        </div>
-
-        <button id="modal-clear" type="button" class="mt-4 w-full py-2.5 text-sm font-semibold text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all">
-          Reset status (Belum Absen)
+        <button id="modal-close" type="button" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Tutup">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
         </button>
       </div>
+
+      <p class="text-sm text-slate-600 mb-4">Pilih status kehadiran untuk tanggal <span id="modal-date-label" class="font-semibold text-blue-600"></span>:</p>
+
+      <div id="modal-status-buttons" class="grid grid-cols-2 gap-3">
+        <!-- Status buttons injected by app.js -->
+      </div>
+
+      <button id="modal-clear" type="button" class="mt-4 w-full py-2.5 text-sm font-semibold text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all">
+        Reset status (Belum Absen)
+      </button>
     </div>
   </div>
 
