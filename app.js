@@ -134,6 +134,12 @@ function getStudentStatus(date, studentId) {
 }
 
 function setStudentStatus(date, studentId, status) {
+  // Tambahkan proteksi di baris paling atas fungsi ini
+  if (!isAdmin()) {
+    alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
+    return;
+  }
+
   const all = loadAllRecords();
   if (!all[date]) all[date] = {};
 
@@ -311,6 +317,10 @@ function renderAttendanceGrid() {
 
   els.attendanceGrid.querySelectorAll('.status-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
+      if (!isAdmin()) {
+      alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
+      return;
+    }
       const { studentId, status } = btn.dataset;
       const current = getStudentStatus(selectedDate, studentId);
       setStudentStatus(selectedDate, studentId, current === status ? null : status);
@@ -432,6 +442,10 @@ function init() {
   if (els.modalClose) els.modalClose.addEventListener('click', closeModal);
   if (els.modalClear) {
     els.modalClear.addEventListener('click', () => {
+      if (!isAdmin()) {
+      alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
+      return;
+    }
       if (activeStudentId) {
         setStudentStatus(selectedDate, activeStudentId, null);
         openModal(activeStudentId);
