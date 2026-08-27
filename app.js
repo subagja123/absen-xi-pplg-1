@@ -381,6 +381,10 @@ function refreshUI() {
 // ── Modal Handlers ─────────────────────────────────────────────────────────
 
 function openModal(studentId) {
+  if (!isAdmin()) {
+  alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
+  return;
+}
   const student = STUDENTS.find((s) => s.id === studentId);
   if (!student || !els.modalOverlay) return;
 
@@ -440,3 +444,84 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+// ==========================================
+// LOGIKA KEAMANAN & AKSES SEKRETARIS (PIN)
+// ==========================================
+const SECRET_PIN = "XIPPLG"; // Ganti angka 123456 ini dengan PIN pilihanmu
+
+function isAdmin() {
+  return localStorage.getItem("is_authenticated") === "true";
+}
+
+function updateUIPermissions() {
+  const btnLogin = document.getElementById("btn-login-sekretaris");
+  if (btnLogin) {
+    if (isAdmin()) {
+      btnLogin.innerText = "🔓 Mode Edit Aktif (Logout)";
+      btnLogin.classList.replace("bg-blue-50", "bg-green-50");
+      btnLogin.classList.replace("text-blue-600", "text-green-700");
+      btnLogin.classList.replace("border-blue-200", "border-green-300");
+    } else {
+      btnLogin.innerText = "🔒 Login Sekretaris";
+      btnLogin.classList.replace("bg-green-50", "bg-blue-50");
+      btnLogin.classList.replace("text-green-700", "text-blue-600");
+      btnLogin.classList.replace("border-green-300", "border-blue-200");
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const pinOverlay = document.getElementById("pin-overlay");
+  const pinInput = document.getElementById("pin-input");
+  const pinSubmit = document.getElementById("pin-submit");
+  const pinError = document.getElementById("pin-error");
+  const btnLogin = document.getElementById("btn-login-sekretaris");
+  const pinClose = document.getElementById("pin-close");
+
+  updateUIPermissions();
+
+  if (btnLogin) {
+    btnLogin.addEventListener("click", () => {
+      if (isAdmin()) {
+        if (confirm("Keluar dari Mode Edit Sekretaris?")) {
+          localStorage.removeItem("is_authenticated");
+          updateUIPermissions();
+        }
+      } else {
+        if (pinOverlay) {
+          pinOverlay.classList.remove("hidden");
+          pinOverlay.classList.add("flex");
+        }
+      }
+    });
+  }
+
+  if (pinClose) {
+    pinClose.addEventListener("click", () => {
+      pinOverlay.classList.add("hidden");
+      pinOverlay.classList.remove("flex");
+    });
+  }
+
+  function verifyPIN() {
+    if (pinInput.value === SECRET_PIN) {
+      localStorage.setItem("is_authenticated", "true");
+      pinOverlay.classList.add("hidden");
+      pinOverlay.classList.remove("flex");
+      pinInput.value = "";
+      if (pinError) pinError.classList.add("hidden");
+      updateUIPermissions();
+    } else {
+      if (pinError) pinError.classList.remove("hidden");
+      pinInput.value = "";
+    }
+  }
+
+  if (pinSubmit) pinSubmit.addEventListener("click", verifyPIN);
+  if (pinInput) {
+    pinInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") verifyPIN();
+    });
+  }
+});
