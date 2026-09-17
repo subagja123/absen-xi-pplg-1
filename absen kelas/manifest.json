@@ -1,0 +1,23 @@
+{
+  "name": "Absensi XI PPLG 1",
+  "short_name": "Absen PPLG1",
+  "description": "Aplikasi Presensi Harian XI PPLG 1",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "bkp.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "bkp.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

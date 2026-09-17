@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <!-- Tag PWA wajib -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2563eb" />
+  <link rel="apple-touch-icon" href="bkp.jpeg" /> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Absen Kelas XI PPLG 1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Background Glow Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-15px) scale(1.05); }
+    }
+
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.45;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    /* Carousel Smooth Scrolling (Lambat & Mulus) */
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .carousel-track {
+      animation: scroll-left 80s linear infinite;
+      width: max-content;
+    }
+
+    .carousel-track:hover,
+    .carousel-track.paused {
+      animation-play-state: paused;
+    }
+
+    /* Card Micro-interactions */
+    .student-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .student-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 24px -10px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Glassmorphism Styling */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    /* Table Hover Styling */
+    tbody tr {
+      transition: background-color 0.2s ease;
+    }
+    tbody tr:hover {
+      background-color: rgba(241, 245, 249, 0.8);
+    }
+  </style>
+</head>
+<body class="font-sans bg-slate-50 min-h-screen text-slate-800 antialiased relative overflow-x-hidden">
+
+  <!-- Hiasan Animated Orbs Latar Belakang -->
+  <div class="bg-blob w-96 h-96 bg-blue-300 top-[-100px] left-[-100px]"></div>
+  <div class="bg-blob w-96 h-96 bg-indigo-300 bottom-[10%] right-[-100px]" style="animation-delay: -4s;"></div>
+  <div class="bg-blob w-72 h-72 bg-sky-200 top-[40%] left-[20%]" style="animation-delay: -2s;"></div>
+
+  <!-- Header -->
+  <header class="glass-card sticky top-0 z-40 shadow-sm transition-all duration-300 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 tracking-tight">
+            Absen Kelas XI PPLG 1
+          </h1>
+          <p class="mt-1 text-sm text-slate-500 font-medium">Sistem presensi harian siswa &mdash; hover kartu untuk jeda animasi</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <!-- Tombol Login Sekretaris Disisipkan Di Sini -->
+          <button 
+            id="btn-login-sekretaris" 
+            class="px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 font-semibold text-sm border border-blue-200 shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            🔒 Login Sekretaris
+          </button>
+
+          <label for="date-selector" class="text-sm font-semibold text-slate-600 whitespace-nowrap">Tanggal:</label>
+          <input
+            type="date"
+            id="date-selector"
+            class="px-3.5 py-2 rounded-xl border border-slate-300/80 bg-white/90 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm hover:border-blue-400 transition-all cursor-pointer"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-10">
+
+    <!-- Summary Stats -->
+    <section id="stats-section" class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <!-- Filled by app.js -->
+    </section>
+
+    <!-- Carousel -->
+    <section aria-label="Daftar siswa">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-800 tracking-tight flex items-center gap-2">
+          <span>Daftar Siswa</span>
+        </h2>
+        <p class="text-xs sm:text-sm font-medium text-slate-500 bg-white/60 px-3 py-1 rounded-full border border-slate-200/60 shadow-xs">Klik kartu untuk mengubah status absen</p>
+      </div>
+      <div class="relative overflow-hidden rounded-2xl glass-card border border-slate-200/80 shadow-md py-6">
+        <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-slate-50/90 to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-slate-50/90 to-transparent z-10 pointer-events-none"></div>
+        <div id="carousel-wrapper" class="overflow-hidden">
+          <div id="carousel-track" class="carousel-track flex gap-5 px-4">
+            <!-- Student cards injected by app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Attendance Panel -->
+    <section class="glass-card rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/60 flex items-center justify-between">
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-800">Input Absensi</h2>
+          <p id="selected-date-label" class="text-sm font-medium text-blue-600 mt-0.5"></p>
+        </div>
+      </div>
+      <div id="attendance-grid" class="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Attendance rows injected by app.js -->
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="glass-card rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="px-5 sm:px-6 py-4 border-b border-slate-100 bg-slate-50/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-800">Riwayat Absensi</h2>
+          <p class="text-sm text-slate-500 mt-0.5">Data tersinkronisasi otomatis secara realtime</p>
+        </div>
+        <span id="history-count" class="text-xs font-semibold text-blue-600 bg-blue-100/80 px-3 py-1 rounded-full w-fit border border-blue-200/50"></span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-100/70 text-slate-700">
+            <tr>
+              <th class="text-left px-5 py-3.5 font-bold">Tanggal</th>
+              <th class="text-center px-3 py-3.5 font-bold text-green-700">Hadir</th>
+              <th class="text-center px-3 py-3.5 font-bold text-amber-600">Sakit</th>
+              <th class="text-center px-3 py-3.5 font-bold text-blue-700">Izin</th>
+              <th class="text-center px-3 py-3.5 font-bold text-rose-700">Alfa</th>
+              <th class="text-center px-3 py-3.5 font-bold text-slate-500">Belum</th>
+              <th class="text-right px-5 py-3.5 font-bold">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="history-body" class="divide-y divide-slate-100">
+            <!-- History rows injected by app.js -->
+          </tbody>
+        </table>
+      </div>
+      <p id="history-empty" class="hidden text-center text-slate-400 py-10 text-sm italic">Belum ada riwayat absensi.</p>
+    </section>
+  </main>
+
+  <!-- Modal PIN Sekretaris (Penambahan Baru) -->
+  <div id="pin-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center border border-slate-100 relative">
+      <button id="pin-close" type="button" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors">✕</button>
+
+      <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+        🔒
+      </div>
+      <h3 class="text-xl font-bold text-slate-800 mb-1">Akses Sekretaris</h3>
+      <p class="text-xs text-slate-500 mb-5">Masukkan PIN untuk membuka fitur edit absensi</p>
+      
+      <input 
+        type="password" 
+        id="pin-input" 
+        maxlength="6" 
+        placeholder="Masukkan PIN" 
+        class="w-full text-center text-2xl tracking-widest py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none mb-4 font-bold"
+      />
+      
+      <button 
+        id="pin-submit" 
+        type="button" 
+        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-all shadow-md shadow-blue-500/20"
+      >
+        Verifikasi PIN
+      </button>
+      <p id="pin-error" class="text-xs text-red-500 mt-3 hidden font-medium">PIN salah, silakan coba lagi!</p>
+    </div>
+  </div>
+
+  <!-- Student Detail Modal (Pop-up yang sudah diperbaiki) -->
+  <div id="modal-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden items-center justify-center p-4 transition-all duration-300" aria-hidden="true">
+    <div
+      id="modal-panel"
+      class="bg-white rounded-2xl shadow-2xl w-full max-w-md relative z-10 p-6 sm:p-8 border border-slate-100 transform transition-all duration-300 scale-100 opacity-100"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-student-name"
+    >
+      <div class="flex justify-between items-start mb-6">
+        <div class="flex items-center gap-4">
+          <div id="modal-avatar" class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xl font-bold shadow-md shadow-blue-500/20"></div>
+          <div>
+            <h3 id="modal-student-name" class="text-xl font-bold text-slate-900"></h3>
+            <p id="modal-student-id" class="text-sm font-medium text-slate-500"></p>
+          </div>
+        </div>
+        <button id="modal-close" type="button" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Tutup">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="text-sm text-slate-600 mb-4">Pilih status kehadiran untuk tanggal <span id="modal-date-label" class="font-semibold text-blue-600"></span>:</p>
+
+      <div id="modal-status-buttons" class="grid grid-cols-2 gap-3">
+        <!-- Status buttons injected by app.js -->
+      </div>
+
+      <button id="modal-clear" type="button" class="mt-4 w-full py-2.5 text-sm font-semibold text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all">
+        Reset status (Belum Absen)
+      </button>
+    </div>
+  </div>
+
+  <footer class="text-center text-xs font-medium text-slate-400 py-8">
+    Absen Kelas XI PPLG 1 &mdash; Terintegrasi dengan Firebase Realtime Database
+  </footer>
+
+  <!-- Tag Firebase ditaro TEPAT SEBELUM app.js -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-analytics.js";
+    import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnVOutBXznjhM-V4qc282L76Cg3NCzaYM",
+      authDomain: "absen-kelas-xi-pplg-1.firebaseapp.com",
+      databaseURL: "https://absen-kelas-xi-pplg-1-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "absen-kelas-xi-pplg-1",
+      storageBucket: "absen-kelas-xi-pplg-1.firebasestorage.app",
+      messagingSenderId: "312539064937",
+      appId: "1:312539064937:web:615e94f27d7785d418d0f8",
+      measurementId: "G-6BX92J88PQ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase(app);
+
+    // Menyimpan fungsi Firebase ke window agar bisa dipanggil oleh app.js
+    window.firebaseDB = db;
+    window.dbRef = ref;
+    window.dbOnValue = onValue;
+    window.dbSet = set;
+    window.dbRemove = remove;
+  </script>
+
+  <!-- app.js dipanggil SETELAH script Firebase di atas -->
+  <script src="app.js"></script>
+</body>
+</html>
