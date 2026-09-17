@@ -53,6 +53,7 @@ const STUDENTS = [
   { id: 's36', name: 'Tesa Tralia Patusha', initials: 'TP' },
   { id: 's37', name: 'Widiayanti', initials: 'W' },
   { id: 's38', name: 'Wulan Patarani', initials: 'WP' },
+  { id: 's39', name: 'Andika Prasetia', initials: 'AP' },
 ];
 
 // ── State ──────────────────────────────────────────────────────────────────
