@@ -15,47 +15,46 @@ const STATUS = {
 };
 
 const STUDENTS = [
-  { id: 's01', name: 'Aira Suci Halifah', initials: 'AS' },
-  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala', initials: 'AE' },
-  { id: 's03', name: 'Alexander Aprilianto', initials: 'AA' },
-  { id: 's04', name: 'Alexander Tibalia', initials: 'AT' },
-  { id: 's05', name: 'Aulia Putri Ramadhani', initials: 'AP' },
-  { id: 's06', name: 'Azuan Zah Razhan', initials: 'AZ' },
-  { id: 's07', name: 'Candra', initials: 'C' },
-  { id: 's08', name: 'Danopan Sidik Agustian Putra', initials: 'DS' },
-  { id: 's09', name: 'Ghaitsa Syakirah Khairunnisa', initials: 'GS' },
-  { id: 's10', name: 'Ilma Zaina Aisyi', initials: 'IZ' },
-  { id: 's11', name: 'Isbat Purwaraga Budiman', initials: 'IP' },
-  { id: 's12', name: 'Julius Gideo Harefa', initials: 'JG' },
-  { id: 's13', name: 'Leni Nirmala', initials: 'LN' },
-  { id: 's14', name: 'Lisnawati', initials: 'L' },
-  { id: 's15', name: 'M.Fajar Herdiansyah', initials: 'FH' },
-  { id: 's16', name: 'M.Fazri Syahnur Agustian', initials: 'FS' },
-  { id: 's17', name: 'Marlan Maulana', initials: 'MM' },
-  { id: 's18', name: 'Meysa Nuralifiani', initials: 'MN' },
-  { id: 's19', name: 'Muhammad Faisal Raahil', initials: 'MR' },
-  { id: 's20', name: 'Muhammad Kautsar AkmalFadlurrahman', initials: 'MK' },
-  { id: 's21', name: 'Muhammad Rafi', initials: 'MR' },
-  { id: 's22', name: 'Muhammad Rafli', initials: 'MR' },
-  { id: 's23', name: 'Muhammad Wildansyah', initials: 'MW' },
-  { id: 's24', name: 'Nadila Arina Wati', initials: 'NW' },
-  { id: 's25', name: 'Nayla Dwi Santang ', initials: 'NS' },
-  { id: 's26', name: 'Neng Siti Rosmawati', initials: 'NS' },
-  { id: 's27', name: 'Raganata Wijaksana', initials: 'RW' },
-  { id: 's28', name: 'Rahma Kayla', initials: 'RK' },
-  { id: 's29', name: 'Ratih', initials: 'R' },
-  { id: 's30', name: 'Rezky Pratama Putra', initials: 'RP' },
-  { id: 's31', name: 'Rifky Saputra', initials: 'RS' },
-  { id: 's32', name: 'Rizki Hadi Maulana', initials: 'RM' },
-  { id: 's33', name: 'Rizquina Al Haira', initials: 'RH' },
-  { id: 's34', name: 'Shafwan Muhammad Isham', initials: 'SI' },
-  { id: 's35', name: 'Supartika', initials: 'S' },
-  { id: 's36', name: 'Tesa Tralia Patusha', initials: 'TP' },
-  { id: 's37', name: 'Widiayanti', initials: 'W' },
-  { id: 's38', name: 'Wulan Patarani', initials: 'WP' },
-  { id: 's39', name: 'Andika Prasetia', initials: 'AP' },
+  { id: 's01', name: 'Aira Suci Halifah', initials: 'AS', photo: '' },
+  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala', initials: 'AE', photo: '' },
+  { id: 's03', name: 'Alexander Aprilianto', initials: 'AA', photo: 'alexap.jpeg' },
+  { id: 's04', name: 'Alexander Tibalia', initials: 'AT', photo: 'alex.jpeg' },
+  { id: 's05', name: 'Aulia Putri Ramadhani', initials: 'AP', photo: 'aul.jpeg' },
+  { id: 's06', name: 'Azuan Zah Razhan', initials: 'AZ', photo: 'juan.jpeg' },
+  { id: 's07', name: 'Candra', initials: 'C', photo: 'oom.jpeg' },
+  { id: 's08', name: 'Danopan Sidik Agustian Putra', initials: 'DS', photo: 'opan.jpeg' },
+  { id: 's09', name: 'Ghaitsa Syakirah Khairunnisa', initials: 'GS', photo: '' },
+  { id: 's10', name: 'Ilma Zaina Aisyi', initials: 'IZ', photo: '' },
+  { id: 's11', name: 'Isbat Purwaraga Budiman', initials: 'IP', photo: 'isbat.jpeg' },
+  { id: 's12', name: 'Julius Gideo Harefa', initials: 'JG', photo: 'enjul.jpeg' },
+  { id: 's13', name: 'Leni Nirmala', initials: 'LN', photo: '' },
+  { id: 's14', name: 'Lisnawati', initials: 'L', photo: '' },
+  { id: 's15', name: 'M.Fajar Herdiansyah', initials: 'FH', photo: '' },
+  { id: 's16', name: 'M.Fazri Syahnur Agustian', initials: 'FS', photo: 'kodel.jpeg' },
+  { id: 's17', name: 'Marlan Maulana', initials: 'MM', photo: '' },
+  { id: 's18', name: 'Meysa Nuralifiani', initials: 'MN', photo: '' },
+  { id: 's19', name: 'Muhammad Faisal Raahil', initials: 'MR', photo: 'isal.jpeg' },
+  { id: 's20', name: 'Muhammad Kautsar AkmalFadlurrahman', initials: 'MK', photo: 'akmal.jpeg' },
+  { id: 's21', name: 'Muhammad Rafi', initials: 'MR', photo: '' },
+  { id: 's22', name: 'Muhammad Rafli', initials: 'MR', photo: 'rafli.jpeg' },
+  { id: 's23', name: 'Muhammad Wildansyah', initials: 'MW', photo: 'idan.jpeg' },
+  { id: 's24', name: 'Nadila Arina Wati', initials: 'NW', photo: '' },
+  { id: 's25', name: 'Nayla Dwi Santang ', initials: 'NS', photo: '' },
+  { id: 's26', name: 'Neng Siti Rosmawati', initials: 'NS', photo: '' },
+  { id: 's27', name: 'Raganata Wijaksana', initials: 'RW', photo: '' },
+  { id: 's28', name: 'Rahma Kayla', initials: 'RK', photo: '' },
+  { id: 's29', name: 'Ratih', initials: 'R', photo: '' },
+  { id: 's30', name: 'Rezky Pratama Putra', initials: 'RP', photo: 'arez.jpeg' },
+  { id: 's31', name: 'Rifky Saputra', initials: 'RS', photo: 'isco.jpg' },
+  { id: 's32', name: 'Rizki Hadi Maulana', initials: 'RM', photo: '' },
+  { id: 's33', name: 'Rizquina Al Haira', initials: 'RH', photo: '' },
+  { id: 's34', name: 'Shafwan Muhammad Isham', initials: 'SI', photo: 'awan.jpg' },
+  { id: 's35', name: 'Supartika', initials: 'S', photo: '' },
+  { id: 's36', name: 'Tesa Tralia Patusha', initials: 'TP', photo: '' },
+  { id: 's37', name: 'Widiayanti', initials: 'W', photo: '' },
+  { id: 's38', name: 'Wulan Patarani', initials: 'WP', photo: '' },
+  { id: 's39', name: 'Andika Prasetia', initials: 'AP', photo: '' },
 ];
-
 // ── State ──────────────────────────────────────────────────────────────────
 
 let selectedDate = getTodayISO();
@@ -206,6 +205,31 @@ function countByStatus(date) {
 
 // ── Render Functions ───────────────────────────────────────────────────────
 
+// ── Avatar Helper Function ─────────────────────────────────────────────────
+
+function getAvatarHTML(student, sizeClass = "w-20 h-20 text-2xl") {
+  if (student.photo) {
+    return `
+      <img 
+        src="${student.photo}" 
+        alt="${student.name}" 
+        class="${sizeClass} rounded-2xl object-cover shadow-lg ring-4 ring-white mb-3 group-hover:scale-105 transition-transform"
+        onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'${sizeClass} rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg ring-4 ring-white mb-3 group-hover:scale-105 transition-transform\'>${student.initials}</div>';"
+      />
+    `;
+  }
+  return `
+    <div class="${sizeClass} rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg ring-4 ring-white mb-3 group-hover:scale-105 transition-transform">
+      ${student.initials}
+    </div>
+  `;
+}
+
+// ── Render Functions ───────────────────────────────────────────────────────
+
+function renderStats() {
+  // ... kode renderStats tetap seperti semula
+}
 function renderStats() {
   if (!els.statsSection) return;
   const counts = countByStatus(selectedDate);
@@ -224,6 +248,13 @@ function renderStats() {
   `).join('');
 }
 
+// ── Render Functions ───────────────────────────────────────────────────────
+
+function renderStats() {
+  // ...
+}
+
+// 📍 GANTI FUNGSI LAMA DI SINI
 function buildStudentCard(student, date) {
   const status = getStudentStatus(date, student.id);
   const meta = getStatusMeta(status);
@@ -237,9 +268,7 @@ function buildStudentCard(student, date) {
     >
       <div class="h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
       <div class="p-5 flex flex-col items-center text-center">
-        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg ring-4 ring-white mb-3 group-hover:scale-105 transition-transform">
-          ${student.initials}
-        </div>
+        ${getAvatarHTML(student, "w-20 h-20 text-2xl")}
         <h3 class="font-semibold text-slate-800 text-base leading-tight">${student.name}</h3>
         <p class="text-xs text-slate-400 mt-0.5 mb-3">${student.id.toUpperCase()}</p>
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ring-1 ${meta.badge}">
@@ -249,6 +278,10 @@ function buildStudentCard(student, date) {
       </div>
     </article>
   `;
+}
+
+function renderCarousel() {
+  // ...
 }
 
 function renderCarousel() {
@@ -291,16 +324,19 @@ function renderAttendanceGrid() {
       : formatDateDisplay(selectedDate);
   }
 
+  // 📍 GANTI BAGIAN innerHTML DI BAWAH INI
   els.attendanceGrid.innerHTML = STUDENTS.map((student) => {
     const status = getStudentStatus(selectedDate, student.id);
     const meta = getStatusMeta(status);
 
+    const avatarSmall = student.photo 
+      ? `<img src="${student.photo}" class="w-10 h-10 rounded-lg object-cover shrink-0" alt="${student.name}" />`
+      : `<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shrink-0">${student.initials}</div>`;
+
     return `
       <div class="rounded-xl border border-slate-200 p-4 bg-slate-50/50 hover:bg-white hover:shadow-sm transition-all">
         <div class="flex items-center gap-3 mb-3">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shrink-0">
-            ${student.initials}
-          </div>
+          ${avatarSmall}
           <div class="min-w-0">
             <p class="font-semibold text-slate-800 truncate">${student.name}</p>
             <span class="inline-flex items-center gap-1 text-xs font-medium ${meta.badge} px-2 py-0.5 rounded-full mt-0.5">
@@ -316,12 +352,13 @@ function renderAttendanceGrid() {
     `;
   }).join('');
 
+  // Bagian addEventListener di bawahnya tetap biarkan seperti semula
   els.attendanceGrid.querySelectorAll('.status-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       if (!isAdmin()) {
-      alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
-      return;
-    }
+        alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
+        return;
+      }
       const { studentId, status } = btn.dataset;
       const current = getStudentStatus(selectedDate, studentId);
       setStudentStatus(selectedDate, studentId, current === status ? null : status);
@@ -391,17 +428,27 @@ function refreshUI() {
 
 // ── Modal Handlers ─────────────────────────────────────────────────────────
 
+// ── Modal Handlers ─────────────────────────────────────────────────────────
+
 function openModal(studentId) {
   if (!isAdmin()) {
-  alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
-  return;
-}
+    alert("Hanya Sekretaris yang memiliki akses untuk mengedit absensi!");
+    return;
+  }
   const student = STUDENTS.find((s) => s.id === studentId);
   if (!student || !els.modalOverlay) return;
 
   activeStudentId = studentId;
 
-  if (els.modalAvatar) els.modalAvatar.textContent = student.initials;
+  // 📍 GANTI BARIS els.modalAvatar LAMA DENGAN KODE INI
+  if (els.modalAvatar) {
+    if (student.photo) {
+      els.modalAvatar.innerHTML = `<img src="${student.photo}" class="w-full h-full object-cover rounded-2xl" alt="${student.name}" />`;
+    } else {
+      els.modalAvatar.textContent = student.initials;
+    }
+  }
+
   if (els.modalName) els.modalName.textContent = student.name;
   if (els.modalStudentId) els.modalStudentId.textContent = `NIS / ID: ${student.id.toUpperCase()}`;
   if (els.modalDateLabel) els.modalDateLabel.textContent = formatDateDisplay(selectedDate);
@@ -421,7 +468,6 @@ function openModal(studentId) {
   els.modalOverlay.classList.remove('hidden');
   els.modalOverlay.classList.add('flex');
 }
-
 function closeModal() {
   if (!els.modalOverlay) return;
   els.modalOverlay.classList.add('hidden');

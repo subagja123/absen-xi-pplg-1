@@ -1,5 +1,3 @@
-const CACHE_NAME = 'absen-pplg1-v1';
-
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -7,16 +5,25 @@ self.addEventListener('install', (e) => {
         'index.html',
         'app.js',
         'manifest.json',
-        'bkp.jpeg'
+        'bkp.jpeg',
+        // Tambahkan path foto siswa di sini jika perlu di-cache offline:
+        'isco.jpg',
+        'akmal.jpeg', 
+        'alex.jpeg ',
+        'alexap.jpeg',
+        'arez.jpeg',
+        'awan.jpg', 
+        'enjul.jpeg',
+        'idan.jpeg',
+        'isal.jpeg', 
+        'juan.jpeg', 
+        'kodel.jpeg',
+        'oom.jpeg', 
+        'opan.jpeg', 
+        'rafli.jpeg',
+        'aul.jpeg',
+        'isbat.jpeg',
       ]);
-    })
-  );
-});
-
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request);
     })
   );
 });
