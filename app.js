@@ -16,7 +16,7 @@ const STATUS = {
 
 const STUDENTS = [
   { id: 's01', name: 'Aira Suci Halifah', initials: 'AS', photo: '' },
-  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala', initials: 'AE', photo: '' },
+  { id: 's02', name: 'Aldrich Evan Antonio Hans Sagala', initials: 'AE', photo: 'rich.jpeg' },
   { id: 's03', name: 'Alexander Aprilianto', initials: 'AA', photo: 'alexap.jpeg' },
   { id: 's04', name: 'Alexander Tibalia', initials: 'AT', photo: 'alex.jpeg' },
   { id: 's05', name: 'Aulia Putri Ramadhani', initials: 'AP', photo: 'aul.jpeg' },
@@ -34,7 +34,7 @@ const STUDENTS = [
   { id: 's17', name: 'Marlan Maulana', initials: 'MM', photo: '' },
   { id: 's18', name: 'Meysa Nuralifiani', initials: 'MN', photo: 'mei.jpeg' },
   { id: 's19', name: 'Muhammad Faisal Raahil', initials: 'MR', photo: 'isal.jpeg' },
-  { id: 's20', name: 'Muhammad Kautsar AkmalFadlurrahman', initials: 'MK', photo: 'akmal.jpeg' },
+  { id: 's20', name: 'Muhammad Kautsar Akmal Fadlurrahman', initials: 'MK', photo: 'akmal.jpeg' },
   { id: 's21', name: 'Muhammad Rafi', initials: 'MR', photo: 'rafi.jpeg' },
   { id: 's22', name: 'Muhammad Rafli', initials: 'MR', photo: 'rafli.jpeg' },
   { id: 's23', name: 'Muhammad Wildansyah', initials: 'MW', photo: 'idan.jpeg' },
