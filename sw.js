@@ -23,6 +23,8 @@ self.addEventListener('install', (e) => {
         'rafli.jpeg',
         'aul.jpeg',
         'isbat.jpeg',
+        'rafi.jpeg',
+        'mei.jpeg',
       ]);
     })
   );
